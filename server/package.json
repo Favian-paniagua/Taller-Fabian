@@ -1,0 +1,38 @@
+{
+  "name": "@taller/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "db:generate": "drizzle-kit generate",
+    "seed": "tsx src/db/seed.ts",
+    "seed:demo": "tsx src/db/seed-demo.ts",
+    "reset-password": "tsx src/scripts/reset-password.ts",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "better-sqlite3": "11.10.0",
+    "cookie-parser": "1.4.7",
+    "drizzle-orm": "0.44.2",
+    "express": "4.21.2",
+    "express-rate-limit": "7.4.1",
+    "helmet": "8.0.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/better-sqlite3": "7.6.12",
+    "@types/cookie-parser": "1.4.8",
+    "@types/express": "4.17.21",
+    "@types/node": "22.10.2",
+    "drizzle-kit": "0.31.1",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  }
+}

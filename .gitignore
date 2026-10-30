@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+
+# Datos del taller: nunca se suben al repositorio
+server/data/
+backups/
+.env

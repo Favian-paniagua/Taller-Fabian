@@ -23,6 +23,7 @@
   --c1: #1f5fa6;
   --c2: #c07a1f;
   --c3: #b0457a;
+  --k1: #2a64b0; --k2: #1f7f8c; --k3: #7a52b8; --k4: #b0457a; --k5: #8b5e3c; --k6: #4a5f86; --k7: #7a7a1f; --k8: #6b7380;
   --prev: #a3acb8;
   --bar-soft: #c9d5e5;
   --info: #2b7489;
@@ -50,7 +51,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not([data-mode="light"]) {
     --bg: #13161a; --surface: #1a1e23; --surface-2: #22272e; --line: #2c333b; --fg: #e7eaee; --muted: #98a2ae;
-    --accent: #6ea3df; --accent-soft: #1c2a3a; --on-accent: #0f1620; --c1: #5b93d6; --c2: #bf822c; --c3: #c85d92; --prev: #5f6976; --bar-soft: #34465c;
+    --accent: #6ea3df; --accent-soft: #1c2a3a; --on-accent: #0f1620; --c1: #5b93d6; --c2: #bf822c; --c3: #c85d92; --k1: #7aa7e6; --k2: #5fb8c4; --k3: #b195e6; --k4: #e08ab3; --k5: #cf9e7c; --k6: #9fb0d4; --k7: #c2c26a; --k8: #a3acb8; --prev: #5f6976; --bar-soft: #34465c;
     --info: #6fbdd0; --info-soft: #182a2f; --good: #6cc39b; --good-soft: #182a22;
     --warn: #e2b260; --warn-soft: #2d2517; --crit: #ec8c80; --crit-soft: #33201d;
     --scrim: rgba(0, 0, 0, 0.55); --glass: rgba(26, 30, 35, 0.74);
@@ -60,7 +61,7 @@
 }
 :root[data-theme="dark"]:not([data-mode="light"]), :root[data-mode="dark"] {
   --bg: #13161a; --surface: #1a1e23; --surface-2: #22272e; --line: #2c333b; --fg: #e7eaee; --muted: #98a2ae;
-  --accent: #6ea3df; --accent-soft: #1c2a3a; --on-accent: #0f1620; --c1: #5b93d6; --c2: #bf822c; --c3: #c85d92; --prev: #5f6976; --bar-soft: #34465c;
+  --accent: #6ea3df; --accent-soft: #1c2a3a; --on-accent: #0f1620; --c1: #5b93d6; --c2: #bf822c; --c3: #c85d92; --k1: #7aa7e6; --k2: #5fb8c4; --k3: #b195e6; --k4: #e08ab3; --k5: #cf9e7c; --k6: #9fb0d4; --k7: #c2c26a; --k8: #a3acb8; --prev: #5f6976; --bar-soft: #34465c;
   --info: #6fbdd0; --info-soft: #182a2f; --good: #6cc39b; --good-soft: #182a22;
   --warn: #e2b260; --warn-soft: #2d2517; --crit: #ec8c80; --crit-soft: #33201d;
   --scrim: rgba(0, 0, 0, 0.55); --glass: rgba(26, 30, 35, 0.74);
@@ -292,6 +293,35 @@ td.num { font-variant-numeric: tabular-nums; }
   width: 110px; height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line);
   background: var(--surface); text-align: right; font-variant-numeric: tabular-nums;
 }
+
+/* ---------- Inventario: colores por categoría y por estado ---------- */
+.k1 { --k: var(--k1); } .k2 { --k: var(--k2); } .k3 { --k: var(--k3); } .k4 { --k: var(--k4); }
+.k5 { --k: var(--k5); } .k6 { --k: var(--k6); } .k7 { --k: var(--k7); } .k8 { --k: var(--k8); }
+.cat { display: inline-flex; align-items: center; gap: 6px; padding: 1px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; white-space: nowrap; color: var(--k); background: color-mix(in srgb, var(--k) 13%, transparent); }
+.chip.kc { display: inline-flex; align-items: center; gap: 7px; }
+.chip.kc::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--k); }
+.chip.kc[aria-pressed="true"] { background: color-mix(in srgb, var(--k) 14%, var(--surface)); border-color: var(--k); color: var(--fg); }
+.inv-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.itile {
+  display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center; text-align: left; cursor: pointer;
+  padding: 14px 16px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface);
+  transition: transform 120ms var(--ease-out), border-color 160ms ease, background-color 160ms ease;
+}
+.itile:active { transform: scale(0.98); }
+.itile .dot { grid-row: span 2; width: 12px; height: 12px; border-radius: 50%; background: var(--sc); box-shadow: 0 0 0 4px var(--sc-soft); }
+.itile b { font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; color: var(--sc); }
+.itile span { font-size: 13px; color: var(--muted); }
+.itile[aria-pressed="true"] { border-color: var(--sc); background: var(--sc-soft); }
+.st-ok { --sc: var(--good); --sc-soft: var(--good-soft); }
+.st-lim { --sc: var(--warn); --sc-soft: var(--warn-soft); }
+.st-low { --sc: var(--crit); --sc-soft: var(--crit-soft); }
+.spill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px 2px 7px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; color: var(--sc); background: var(--sc-soft); }
+.spill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.spill.out { color: var(--on-accent); background: var(--crit); }
+.meter-bar i.ok { background: var(--good); }
+tr.agotado td { background: color-mix(in srgb, var(--crit-soft) 55%, transparent); }
+@media (hover: hover) and (pointer: fine) { .itile:hover { border-color: var(--sc); } }
+@media (max-width: 640px) { .inv-tiles { gap: 8px; } .itile { grid-template-columns: 1fr; padding: 12px; } .itile .dot { grid-row: auto; } .itile b { font-size: 20px; } }
 
 /* ---------- Resumen: gráficos ---------- */
 .dash-grid { display: grid; gap: 16px; }
@@ -615,7 +645,7 @@ td.num { font-variant-numeric: tabular-nums; }
   .drawer.open .sheet { opacity: 1; }
   .card, .modal.open .card { transform: none !important; }
   .toast, .toast.leaving, .tip { transform: none !important; }
-  .btn:active, .icon-btn:active, .theme-sw:active, .chip:active, .ot-card:active, .tab:active, .qty button:active { transform: none; }
+  .btn:active, .icon-btn:active, .theme-sw:active, .itile:active, .chip:active, .ot-card:active, .tab:active, .qty button:active { transform: none; }
   .seg .thumb, .wiz-bar i::after, .theme-sw.ready .knob { transition: none; }
   #view.enter .stagger > * { animation-name: fade; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
@@ -941,7 +971,7 @@ else {
 }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 
-const UI = { view: "taller", histFilter: "taller", histQuery: "", invQuery: "", invCat: "Todos", invLow: false, cliQuery: "", period: "mes", drawer: null, enter: false, showTable: false, mode: "auto" };
+const UI = { view: "taller", histFilter: "taller", histQuery: "", invQuery: "", invCat: "Todos", invState: "todos", cliQuery: "", period: "mes", drawer: null, enter: false, showTable: false, mode: "auto" };
 
 /* ---------- Utilidades ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1459,28 +1489,42 @@ function histTable() {
 }
 
 /* ---------- Inventario ---------- */
+const CAT_K = { Lubricantes: "k1", Filtros: "k2", Encendido: "k3", Frenos: "k4", "Transmisión": "k5", "Eléctrico": "k6", "Suspensión": "k7", Varios: "k8" };
+const catTag = (c) => `<span class="cat ${CAT_K[c] || "k8"}">${esc(c)}</span>`;
+/* Estado del stock: bien (sobre el mínimo), al límite (justo en el mínimo), por reponer (debajo del mínimo o agotado) */
+const stockState = (p) => (p.stock < p.min ? "reponer" : p.stock === p.min ? "limite" : "bien");
 function viewInventario() {
   const cats = ["Todos", ...new Set(S.parts.map((p) => p.cat))];
   const value = S.parts.reduce((a, p) => a + p.stock * p.cost, 0);
+  const cnt = { bien: 0, limite: 0, reponer: 0 }; let out = 0;
+  S.parts.forEach((p) => { cnt[stockState(p)]++; if (p.stock === 0) out++; });
+  const tile = (st, cls, label, extra) => `<button class="itile ${cls}" data-act="inv-state" data-id="${st}" aria-pressed="${UI.invState === st}"><span class="dot"></span><b>${cnt[st]}</b><span>${label}${extra || ""}</span></button>`;
   return `
   <div class="page-head"><div><h1>Inventario de repuestos</h1><p>${S.parts.length} productos · valor en almacén ${money(value)} a costo</p></div>
     <button class="btn primary" data-act="ingreso">${I.plus}Registrar ingreso</button></div>
+  <div class="inv-tiles">
+    ${tile("bien", "st-ok", "Bien surtidos")}
+    ${tile("limite", "st-lim", "Al límite")}
+    ${tile("reponer", "st-low", "Por reponer", out ? ` · ${out} agotados` : "")}
+  </div>
   <div class="toolbar">
     <label class="search">${I.search}<input id="inv-q" data-input="inv-q" placeholder="Buscar por nombre o código" value="${esc(UI.invQuery)}" autocomplete="off"></label>
-    <button class="chip" data-act="inv-low" aria-pressed="${UI.invLow}">Solo por reponer (${lowParts().length})</button>
+    ${UI.invState !== "todos" ? `<button class="chip" data-act="inv-state" data-id="todos">Ver todos los estados</button>` : ""}
   </div>
-  <div class="chips" style="margin-bottom:14px">${cats.map((c) => `<button class="chip" data-act="inv-cat" data-id="${esc(c)}" aria-pressed="${UI.invCat === c}">${esc(c)}</button>`).join("")}</div>
+  <div class="chips" style="margin-bottom:14px">${cats.map((c) => `<button class="chip ${c === "Todos" ? "" : "kc " + (CAT_K[c] || "k8")}" data-act="inv-cat" data-id="${esc(c)}" aria-pressed="${UI.invCat === c}">${esc(c)}</button>`).join("")}</div>
   <section class="panel table-wrap" id="inv-table">${invTable()}</section>`;
 }
 function invTable() {
   const q = UI.invQuery.trim().toLowerCase();
-  let list = S.parts.filter((p) => (UI.invCat === "Todos" || p.cat === UI.invCat) && (!UI.invLow || isLow(p)));
+  let list = S.parts.filter((p) => (UI.invCat === "Todos" || p.cat === UI.invCat) && (UI.invState === "todos" || stockState(p) === UI.invState));
   if (q) list = list.filter((p) => (p.name + " " + p.code).toLowerCase().includes(q));
   if (!list.length) return `<div class="empty">No hay repuestos que coincidan.</div>`;
-  return `<table><thead><tr><th>Código</th><th>Repuesto</th><th class="hide-sm">Ubic.</th><th>Stock</th><th class="r hide-sm">Costo</th><th class="r">Precio</th></tr></thead><tbody>
-  ${list.map((p) => { const ratio = Math.min(1, p.stock / Math.max(1, p.min * 2.5)); const cls = isLow(p) ? "low" : p.stock <= p.min ? "mid" : "";
-    return `<tr class="row-click" data-act="ingreso" data-id="${p.id}"><td class="mono" style="font-size:12px">${p.code}</td><td>${esc(p.name)}<div class="muted" style="font-size:12px">${esc(p.cat)} · mínimo ${p.min}</div></td><td class="hide-sm mono" style="font-size:12px">${p.loc}</td>
-    <td><div class="meter"><span class="num" style="min-width:22px;font-weight:600">${p.stock}</span><span class="meter-bar"><i class="${cls}" style="transform:scaleX(${ratio.toFixed(3)})"></i></span>${isLow(p) ? `<span class="tag low">${p.stock === 0 ? "Agotado" : "Reponer"}</span>` : ""}</div></td>
+  return `<table><thead><tr><th class="hide-sm">Código</th><th>Repuesto</th><th class="hide-sm">Ubic.</th><th>Stock</th><th class="r hide-sm">Costo</th><th class="r">Precio</th></tr></thead><tbody>
+  ${list.map((p) => {
+    const st = stockState(p), ratio = Math.min(1, p.stock / Math.max(1, p.min * 2.5));
+    const pill = p.stock === 0 ? `<span class="spill st-low out">Agotado</span>` : st === "reponer" ? `<span class="spill st-low">Reponer</span>` : st === "limite" ? `<span class="spill st-lim">Al límite</span>` : `<span class="spill st-ok">Bien</span>`;
+    return `<tr class="row-click ${p.stock === 0 ? "agotado" : ""}" data-act="ingreso" data-id="${p.id}"><td class="mono hide-sm" style="font-size:12px">${p.code}</td><td><div>${esc(p.name)}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px">${catTag(p.cat)}<span class="muted" style="font-size:12px">mínimo ${p.min}</span></div></td><td class="hide-sm mono" style="font-size:12px">${p.loc}</td>
+    <td><div class="meter"><span class="num" style="min-width:22px;font-weight:600">${p.stock}</span><span class="meter-bar"><i class="${st === "reponer" ? "low" : st === "limite" ? "mid" : "ok"}" style="transform:scaleX(${ratio.toFixed(3)})"></i></span>${pill}</div></td>
     <td class="r num hide-sm muted">${money(p.cost)}</td><td class="r num">${money(p.price)}</td></tr>`; }).join("")}
   </tbody></table>`;
 }
@@ -1996,7 +2040,7 @@ function cajaModal() {
 
 /* ---------- Eventos ---------- */
 const ACT = {
-  nav: (t) => { const to = t.dataset.id; UI.enter = to !== UI.view; UI.view = to; if (t.dataset.low) { UI.invLow = true; UI.invCat = "Todos"; } if (UI.drawer) closeDrawer(true); if (modalCtx) closeModal(true); render(); window.scrollTo(0, 0); },
+  nav: (t) => { const to = t.dataset.id; UI.enter = to !== UI.view; UI.view = to; if (t.dataset.low) { UI.invState = "reponer"; UI.invCat = "Todos"; } if (UI.drawer) closeDrawer(true); if (modalCtx) closeModal(true); render(); window.scrollTo(0, 0); },
   more: () => openModal(`${head("Más")}<div class="card-body"><div class="list panel">${NAV.filter((n) => ["historial", "clientes", "tarifario"].includes(n.id)).map((n) => `<button class="list-row row-click" style="border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left" data-act="nav" data-id="${n.id}"><span style="width:22px;height:22px;color:var(--accent)">${n.icon}</span><span class="grow t">${n.label}</span>${I.arrow.replace("<svg", '<svg style="width:16px;height:16px;color:var(--muted)"')}</button>`).join("")}</div>
     <button class="link-btn quiet" data-act="reset" style="justify-self:start">Restablecer datos de ejemplo</button></div>`, { kind: "more" }),
   "new-order": () => { if (UI.drawer) closeDrawer(true); newOrderModal(); },
@@ -2005,7 +2049,7 @@ const ACT = {
   "close-drawer": () => closeDrawer(false),
   "close-modal": () => closeModal(false),
   "inv-cat": (t) => { UI.invCat = t.dataset.id; render(); },
-  "inv-low": () => { UI.invLow = !UI.invLow; render(); },
+  "inv-state": (t) => { UI.invState = UI.invState === t.dataset.id ? "todos" : t.dataset.id; render(); },
   "toggle-table": () => { UI.showTable = !UI.showTable; render(); },
   "toggle-dark": () => setMode(isDark() ? "light" : "dark"),
   advance: (t) => {
@@ -2077,7 +2121,7 @@ const ACT = {
   "cerrar-caja": () => cajaModal(),
   "cj-save": () => { S.cashClosed = { at: nowT(), counted: parseFloat($("#cj-count").value) || 0 }; closeModal(); render(); toast("Caja cerrada"); },
   reset: () => openModal(`${head("Restablecer datos de ejemplo")}<div class="card-body"><p>Se borran las órdenes, cobros y cambios hechos en esta demo, y se cargan otra vez los datos de ejemplo.</p></div><div class="card-foot"><button class="btn ghost" data-act="close-modal">Cancelar</button><button class="btn primary" data-act="reset-ok">Restablecer</button></div>`),
-  "reset-ok": () => { S = seed(); UI.view = "taller"; UI.invLow = false; closeModal(true); if (UI.drawer) closeDrawer(true); render(); toast("Datos de ejemplo restablecidos"); },
+  "reset-ok": () => { S = seed(); UI.view = "taller"; UI.invState = "todos"; closeModal(true); if (UI.drawer) closeDrawer(true); render(); toast("Datos de ejemplo restablecidos"); },
 };
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-act]");
