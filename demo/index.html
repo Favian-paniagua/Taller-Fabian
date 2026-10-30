@@ -668,7 +668,6 @@ tr.agotado td { background: color-mix(in srgb, var(--crit-soft) 55%, transparent
     <div class="spacer"></div>
     <div class="side-foot">
       <div class="who"><span class="av lg">F</span><span style="flex:1;min-width:0"><b style="display:block;font-size:14px">Fabián</b><span class="muted" style="font-size:12px">Administrador</span></span><button type="button" class="theme-sw" data-act="toggle-dark" role="switch" aria-checked="false" aria-label="Modo oscuro"></button></div>
-      <button class="link-btn quiet" data-act="reset" style="padding-inline:4px">Restablecer datos de ejemplo</button>
     </div>
   </aside>
   <main class="main">
@@ -2041,8 +2040,7 @@ function cajaModal() {
 /* ---------- Eventos ---------- */
 const ACT = {
   nav: (t) => { const to = t.dataset.id; UI.enter = to !== UI.view; UI.view = to; if (t.dataset.low) { UI.invState = "reponer"; UI.invCat = "Todos"; } if (UI.drawer) closeDrawer(true); if (modalCtx) closeModal(true); render(); window.scrollTo(0, 0); },
-  more: () => openModal(`${head("Más")}<div class="card-body"><div class="list panel">${NAV.filter((n) => ["historial", "clientes", "tarifario"].includes(n.id)).map((n) => `<button class="list-row row-click" style="border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left" data-act="nav" data-id="${n.id}"><span style="width:22px;height:22px;color:var(--accent)">${n.icon}</span><span class="grow t">${n.label}</span>${I.arrow.replace("<svg", '<svg style="width:16px;height:16px;color:var(--muted)"')}</button>`).join("")}</div>
-    <button class="link-btn quiet" data-act="reset" style="justify-self:start">Restablecer datos de ejemplo</button></div>`, { kind: "more" }),
+  more: () => openModal(`${head("Más")}<div class="card-body"><div class="list panel">${NAV.filter((n) => ["historial", "clientes", "tarifario"].includes(n.id)).map((n) => `<button class="list-row row-click" style="border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left" data-act="nav" data-id="${n.id}"><span style="width:22px;height:22px;color:var(--accent)">${n.icon}</span><span class="grow t">${n.label}</span>${I.arrow.replace("<svg", '<svg style="width:16px;height:16px;color:var(--muted)"')}</button>`).join("")}</div></div>`, { kind: "more" }),
   "new-order": () => { if (UI.drawer) closeDrawer(true); newOrderModal(); },
   "open-order": (t) => openDrawer({ type: "order", id: t.dataset.id }),
   "open-client": (t) => openDrawer({ type: "client", id: t.dataset.id }),
